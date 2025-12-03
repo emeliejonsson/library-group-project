@@ -4,9 +4,12 @@ public class Library {
     private List<Book> booksList;
     private Map<String, ReasonForRemoval> removedBooks = new HashMap<>();
 
-
     public Library() {
         this.booksList = new ArrayList<>();
+    }
+
+    public Library(List<Book> booksList) {
+        this.booksList = booksList;
     }
 
     public void findBook(String bookSearch) {
@@ -27,12 +30,15 @@ public class Library {
     }
 
     public void removeBook(String nameOfBook, ReasonForRemoval reason) {
-        if (booksList.remove(nameOfBook)) {
-            removedBooks.put(nameOfBook, reason);
-            System.out.println("Removed: " + nameOfBook + ". Reason for removal: " + reason);
-        } else {
-            System.out.println("Can't find: " + nameOfBook);
+        for (Book book : booksList) {
+            if (book.getTitle().equals(nameOfBook)) {
+                booksList.remove(book);
+                removedBooks.put(nameOfBook, reason);
+                System.out.println("Removed: " + nameOfBook + ". Reason for removal: " + reason);
+                return;
+            }
         }
+        System.out.println("Can't find: " + nameOfBook);
     }
 
     public List<Book> getBooksList() {
