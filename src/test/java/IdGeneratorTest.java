@@ -1,4 +1,3 @@
-package models;
 import org.junit.jupiter.api.Test;
 import se.models.IdGenerator;
 

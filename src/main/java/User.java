@@ -3,14 +3,17 @@
 public class User {
     private String name;
     private final String userID;
-
+    private final UserStatus status;
 
     public User(String name) {
 
         if (Validate.hasValidName(name)) {
             this.name = name;
 
-            this.userID = IdGenerator.generateID();
+            this.userID = IdGenerator.generateID()
+
+            this.status = UserStatus.ACTIVE;
+
         } else {
             throw new IllegalArgumentException("Invalid name.");
         }
