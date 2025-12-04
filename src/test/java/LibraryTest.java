@@ -17,7 +17,6 @@ class LibraryTest {
         booksList.add(new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084", 5));
         booksList.add(new Book("1984", "George Orwell", "9780451524935", 3));
 
-
         library = new Library(booksList);
     }
 
@@ -41,5 +40,12 @@ class LibraryTest {
         library.removeBook("This book does not exist", ReasonForRemoval.DAMAGED);
         assertEquals(2, booksList.size());
         assertFalse(library.getRemovedBooks().containsKey("This book does not exist"));
+    }
+
+    @Test
+    public void testFindBook() {
+        Book searchBook = library.findBook("To Kill a Mockingbird");
+        assertTrue(booksList.contains(searchBook));
+
     }
 }
