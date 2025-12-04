@@ -1,4 +1,3 @@
-package se.models;
 
 
 public class User {
