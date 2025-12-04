@@ -1,3 +1,3 @@
 public enum LoanStatus {
-    ACTIVE, OLD, INVALID
+    ACTIVE, OLD, INVALID, BOOKSTOLEN
 }
