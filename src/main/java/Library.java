@@ -12,21 +12,21 @@ public class Library {
         this.booksList = booksList;
     }
 
-    public void findBook(String bookSearch) {
+    public Book findBook(String bookSearch) {
         for (Book books : this.booksList) {
             if (books.getTitle().equals(bookSearch)) {
                 System.out.println(books.getTitle());
-                return;
-            } else {
-                System.out.println("Try again");
+                return books;
             }
         }
+        System.out.println("Ingen matching för " + bookSearch + " hittades. Kontrollera stavningen eller försök med en annan titel.");
+        return null;
 
     }
 
     public void addBook(Book newBook) {
         booksList.add(newBook);
-        System.out.println(newBook + " was added to the library catalogue.");
+        System.out.println(newBook.getTitle() + " av " + newBook.getAuthor() + " har lagts till i katalogen.");
     }
 
     public void removeBook(String nameOfBook, ReasonForRemoval reason) {
@@ -34,11 +34,11 @@ public class Library {
             if (book.getTitle().equals(nameOfBook)) {
                 booksList.remove(book);
                 removedBooks.put(nameOfBook, reason);
-                System.out.println("Removed: " + nameOfBook + ". Reason for removal: " + reason);
+                System.out.println(nameOfBook + " har gallrats från katalogen. Anledning för gallring: " + reason);
                 return;
             }
         }
-        System.out.println("Can't find: " + nameOfBook);
+        System.out.println("Ingen matchning för " + nameOfBook + " hittades. Kontrollera stavningen eller försök med en anan titel.");
     }
 
     public List<Book> getBooksList() {
@@ -48,35 +48,5 @@ public class Library {
     public Map<String, ReasonForRemoval> getRemovedBooks() {
         return removedBooks;
     }
-
-    // find book för att loopa igenom boklistan
-
-    /**ANVÄNDA I MAIN, LÄGGS TILL EFTER booksList
-     Library library = new Library(booksList);
-
-     LÄGG TILL ADD/REMOVE I MAIN:
-     String bookToAdd = scanner.nextLine();
-     library.addBook(bookToAdd);
-     break;
-
-     String bookToRemove = scanner.nextLine();
-     (print: reason for removal)
-     int removalReason = scanner.nextInt();
-     scanner.nextLine();
-
-     switch (removalReason) {
-     case 1: reason = ReasonForRemoval.LOST;
-     break;
-     case 2: reason = ReasonForRemoval.DAMAGED;
-     break;
-     case 3: reason = ReasonForRemoval.SOLD;
-     break;
-     default: reason = ReasonForRemoval.OTHER;
-     break;
-     }
-
-     library.removeBook(bookToRemove, reason);
-     break;
-     */
 
 }

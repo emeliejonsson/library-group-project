@@ -5,41 +5,42 @@ public class User {
     private final String userID;
     private final UserStatus status;
 
-    public User(String name) {
+public class User
+{
+	private String name;
+	private final String userID;
 
-        if (Validate.hasValidName(name)) {
-            this.name = name;
+	public User(String name)
+	{
 
-            this.userID = IdGenerator.generateID()
+		this.name = name;
+		this.userID = IdGenerator.generateID();
+
 
             this.status = UserStatus.ACTIVE;
 
-        } else {
-            throw new IllegalArgumentException("Invalid name.");
         }
 
-    }
 
+	@Override
+	public String toString()
+	{
+		return "User " + name + '\'' + ", userID= " + userID + '\'' + "";
+	}
 
-    @Override
-    public String toString() {
-        return "User " +
-                name + '\'' +
-                ", userID= " + userID + '\''
-                + "";
-    }
+	public String getUserID()
+	{
+		return userID;
+	}
 
-    public String getUserID() {
-        return userID;
-    }
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
+	public String getName()
+	{
+		return name;
+	}
 
 }
