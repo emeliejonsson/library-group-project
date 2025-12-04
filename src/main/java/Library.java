@@ -34,7 +34,7 @@ public class Library {
             if (book.getTitle().equals(nameOfBook)) {
                 booksList.remove(book);
                 removedBooks.put(nameOfBook, reason);
-                System.out.println(nameOfBook + " har gallrats från katalogen.");
+                System.out.println(nameOfBook + " har gallrats från katalogen. Anledning för gallring: " + reason);
                 return;
             }
         }
