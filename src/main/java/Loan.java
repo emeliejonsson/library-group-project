@@ -37,9 +37,8 @@ public class Loan
 		                     Book: %s
 		                     User: %s
 		                     Due date: %s
-		                     Loan status: %s
-		                     """, loanID, book.getTitle(), user.getName(),
-		                     returnDate, status);
+		                     Loan status: %s""", loanID, book.getTitle(),
+		                     user.getName(), returnDate, status);
 	}
 
 	public void endLoan()
