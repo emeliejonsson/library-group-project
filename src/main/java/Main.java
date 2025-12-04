@@ -18,6 +18,7 @@ public class Main
 		library.addBook(book5);
 
 		Scanner input = new Scanner(System.in);
+		String exit = "\u001B[3mKlicka en knapp för att lämna\u001B[0m";
 		int loanId = 1;
 		Loan loan = null;
 		User user = null;
@@ -52,10 +53,6 @@ public class Main
 					if (user == null)
 					{
 						System.out.println("Du måste skapa en användare först");
-						System.out.println();
-						System.out.println(
-								"\u001B[3mKlicka en knapp för att lämna\u001B[0m");
-						input.nextLine();
 					}
 					else
 					{
@@ -65,7 +62,11 @@ public class Main
 						Book bookBorrow = library.findBook(title);
 						loan = new Loan(loanId, user, bookBorrow);
 						loanId++;
+						System.out.println(loan.toString());
 					}
+					System.out.println();
+					System.out.println(exit);
+					input.nextLine();
 				}
 				case 3 ->
 				{
@@ -78,8 +79,7 @@ public class Main
 						System.out.println(loan.toString());
 					}
 					System.out.println();
-					System.out.println(
-							"\u001B[3mKlicka en knapp för att lämna\u001B[0m");
+					System.out.println(exit);
 					input.nextLine();
 				}
 				case 4 ->
@@ -89,8 +89,7 @@ public class Main
 						System.out.println("Titel: " + books.getTitle());
 					}
 					System.out.println();
-					System.out.println(
-							"\u001B[3mKlicka en knapp för att lämna\u001B[0m");
+					System.out.println(exit);
 					input.nextLine();
 				}
 				case 5 ->
@@ -123,8 +122,49 @@ public class Main
 								library.addBook(new Book(bookTitle, bookAuthor,
 								                         bookIsbn, 1));
 								System.out.println();
+								System.out.println(exit);
+								input.nextLine();
+							}
+							case 2 ->
+							{
 								System.out.println(
-										"\u001B[3mKlicka en knapp för att lämna\u001B[0m");
+										"Skriv in titeln på boken du vill ta bort");
+								String removeTitle = input.nextLine();
+								System.out.println("Välj anledningen nedan");
+								System.out.printf("""
+								                  1. Skadad
+								                  2. Saknas
+								                  3. Gammal upplaga
+								                  """);
+								int choiceRemove = input.nextInt();
+								input.nextLine();
+								ReasonForRemoval removalReason = null;
+								switch (choiceRemove)
+								{
+									case 1 ->
+									{
+										removalReason = ReasonForRemoval.DAMAGED;
+									}
+									case 2 ->
+									{
+										removalReason = ReasonForRemoval.LOST;
+									}
+									case 3 ->
+									{
+										removalReason = ReasonForRemoval.OUTDATED;
+									}
+									default ->
+									{
+										System.out.println(
+												"Använd 1-3 för att göra val");
+										System.out.println();
+										System.out.println(exit);
+										input.nextLine();
+									}
+								}
+								library.removeBook(removeTitle, removalReason);
+								System.out.println();
+								System.out.println(exit);
 								input.nextLine();
 							}
 							default ->
@@ -132,8 +172,7 @@ public class Main
 								System.out.println(
 										"Använd 0-2 för att göra val");
 								System.out.println();
-								System.out.println(
-										"\u001B[3mKlicka en knapp för att lämna\u001B[0m");
+								System.out.println(exit);
 								input.nextLine();
 							}
 						}
@@ -141,11 +180,9 @@ public class Main
 				}
 				default ->
 				{
+					System.out.println();
 					System.out.println("Använd 0-4 för att göra val");
 					System.out.println();
-					System.out.println(
-							"\u001B[3mKlicka en knapp för att lämna\u001B[0m");
-					input.nextLine();
 				}
 			}
 		}
