@@ -1,4 +1,3 @@
-package se.models;
 
 import java.util.Random;
 
