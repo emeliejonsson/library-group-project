@@ -1,85 +1,107 @@
 import java.time.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Loan
 {
-    private User user;
-    private Book book;
-    private int loanID;
-    private LocalDate dueDate;
-    private LoanStatus status;
+	private final User user;
+	private final Book book;
+	private final int loanID;
+	private final LocalDate returnDate;
+	private LoanStatus status;
+	private int random;
 
-    public Loan(int loanID, User user, Book book)
-    {
-        this.loanID = loanID;
-        this.user = user;
-        this.book = book;
-        status = LoanStatus.ACTIVE;
-        dueDate = LocalDate.now().plusDays(10);
-    }
+	public Loan(int loanID,
+	            User user,
+	            Book book)
+	{
+		random = ThreadLocalRandom.current().nextInt(0, 1000);
+		this.loanID = loanID;
+		this.user = user;
+		this.book = book;
+		if (random == 1000)
+		{
+			status = LoanStatus.BOOKSTOLEN;
+		}
+		else
+		{
+			status = LoanStatus.ACTIVE;
+		}
+		returnDate = LocalDate.now().plusDays(12);
+	}
 
-    @Override
-    public String toString()
-    {
-        return String.format("""
-                             Loan ID: %d
-                             Book: %s
-                             User: %s
-                             Due date: %s
-                             """, loanID, book.getTitle(), user.getName(),
-                             dueDate);
-    }
+	@Override
+	public String toString()
+	{
+		return String.format("""
+		                     Loan ID: %d
+		                     Book: %s
+		                     User: %s
+		                     Due date: %s
+		                     Loan status: %s
+		                     """, loanID, book.getTitle(), user.getName(),
+		                     returnDate, status);
+	}
 
-    public void endLoan()
-    {
-        status = LoanStatus.OLD;
-    }
+	public void endLoan()
+	{
+		status = LoanStatus.OLD;
+	}
 
-    public User getUser()
-    {
-        return user;
-    }
+	public void setRandom(int random)
+	{
+		this.random = random;
+		if (random == 1000)
+		{
+			this.status = LoanStatus.BOOKSTOLEN;
+		}
+	}
 
-    public Book getBook()
-    {
-        return book;
-    }
+	public User getUser()
+	{
+		return user;
+	}
 
-    public int getLoanID()
-    {
-        return loanID;
-    }
+	public Book getBook()
+	{
+		return book;
+	}
 
-    public LocalDate getDueDate()
-    {
-        return dueDate;
-    }
+	public int getLoanID()
+	{
+		return loanID;
+	}
 
-    public LoanStatus getStatus()
-    {
-        return status;
-    }
+	public LocalDate getReturnDate()
+	{
+		return returnDate;
+	}
 
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + loanID;
-        return result;
-    }
+	public LoanStatus getStatus()
+	{
+		return status;
+	}
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Loan other = (Loan) obj;
-        if (loanID != other.loanID)
-            return false;
-        return true;
-    }
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + loanID;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Loan other = (Loan) obj;
+		if (loanID != other.loanID)
+			return false;
+		return true;
+	}
 }
