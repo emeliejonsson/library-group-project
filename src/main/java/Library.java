@@ -12,15 +12,15 @@ public class Library {
         this.booksList = booksList;
     }
 
-    public void findBook(String bookSearch) {
+    public Book findBook(String bookSearch) {
         for (Book books : this.booksList) {
             if (books.getTitle().equals(bookSearch)) {
                 System.out.println(books.getTitle());
-                return;
-            } else {
-                System.out.println("Try again");
+                return books;
             }
         }
+        System.out.println("Try again");
+        return null;
 
     }
 
