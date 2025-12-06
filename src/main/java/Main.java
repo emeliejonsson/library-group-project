@@ -131,36 +131,47 @@ public class Main {
                       2. Ta bort bok
                       0. Lämna
                     """);
-            choiceAdmin = input.nextInt();
-            input.nextLine();
-            switch (choiceAdmin) {
-                case 0 -> {
-                    break;
+            if (input.hasNextInt()) {
+                choiceAdmin = input.nextInt();
+                input.nextLine();
+                switch (choiceAdmin) {
+                    case 0 -> {
+                        break;
+                    }
+                    case 1 -> {
+                        cleanScreen();
+                        createBook(library, input);
+                    }
+                    case 2 -> {
+                        cleanScreen();
+                        removeBook(library, input);
+                    }
+                    default -> {
+                        cleanScreen();
+                        System.out.println("Använd 0-2 för att göra val");
+                        System.out.println();
+                        cursiveText("Klicka en knapp för att fortsätta");
+                        input.nextLine();
+                        cleanScreen();
+                    }
                 }
-                case 1 -> {
-                    createBook(library, input);
-                }
-                case 2 -> {
-                    removeBook(library, input);
-                }
-                default -> {
-                    cleanScreen();
-                    System.out.println("Använd 0-2 för att göra val");
-                    System.out.println();
-                    cursiveText("Klicka en knapp för att fortsätta");
-                    input.nextLine();
-                    cleanScreen();
-                }
+            } else {
+                cleanScreen();
+                cursiveText("Använd bara siffror när du gör val!");
+                System.out.println();
+                input.next();
             }
         }
+        cleanScreen();
     }
 
     private static void removeBook(Library library, Scanner input) {
-        cleanScreen();
         listBooks(library);
         System.out.println();
         System.out.println("Skriv in titeln på boken du vill ta bort");
+        System.out.println();
         String removeTitle = input.nextLine();
+        System.out.println();
         System.out.println("Välj anledningen nedan");
         System.out.printf("""
                 1. Skadad
@@ -168,42 +179,59 @@ public class Main {
                 3. Gammal upplaga
                 0. Avbryt
                 """);
-        int choiceRemove = input.nextInt();
-        input.nextLine();
-        ReasonForRemoval removalReason = null;
-        switch (choiceRemove) {
-            case 0 -> {
-                return;
+        if (input.hasNextInt()) {
+            int choiceRemove = input.nextInt();
+            input.nextLine();
+            ReasonForRemoval removalReason = null;
+            switch (choiceRemove) {
+                case 0 -> {
+                    cleanScreen();
+                }
+                case 1 -> {
+                    cleanScreen();
+                    removalReason = ReasonForRemoval.DAMAGED;
+                    library.removeBook(removeTitle, removalReason);
+                    System.out.println();
+                    cursiveText("Klicka en knapp för att fortsätta");
+                    input.nextLine();
+                    cleanScreen();
+                }
+                case 2 -> {
+                    cleanScreen();
+                    removalReason = ReasonForRemoval.LOST;
+                    library.removeBook(removeTitle, removalReason);
+                    System.out.println();
+                    cursiveText("Klicka en knapp för att fortsätta");
+                    input.nextLine();
+                    cleanScreen();
+                }
+                case 3 -> {
+                    cleanScreen();
+                    removalReason = ReasonForRemoval.OUTDATED;
+                    library.removeBook(removeTitle, removalReason);
+                    System.out.println();
+                    cursiveText("Klicka en knapp för att fortsätta");
+                    input.nextLine();
+                    cleanScreen();
+                }
+                default -> {
+                    cleanScreen();
+                    System.out.println("Du måste välja en anledning för borttagningen");
+                    System.out.println();
+                    cursiveText("Klicka en knapp för att fortsätta");
+                    input.nextLine();
+                    cleanScreen();
+                }
             }
-            case 1 -> {
-                removalReason = ReasonForRemoval.DAMAGED;
-                library.removeBook(removeTitle, removalReason);
-            }
-            case 2 -> {
-                removalReason = ReasonForRemoval.LOST;
-                library.removeBook(removeTitle, removalReason);
-            }
-            case 3 -> {
-                removalReason = ReasonForRemoval.OUTDATED;
-                library.removeBook(removeTitle, removalReason);
-            }
-            default -> {
-                cleanScreen();
-                System.out.println("Du måste välja en anledning för borttagningen");
-                System.out.println();
-                cursiveText("Klicka en knapp för att fortsätta");
-                input.nextLine();
-                return;
-            }
+        } else {
+            cleanScreen();
+            cursiveText("Använd bara siffror när du gör val!");
+            System.out.println();
+            input.next();
         }
-        System.out.println();
-        cursiveText("Klicka en knapp för att lämna");
-        input.nextLine();
-        cleanScreen();
     }
 
     private static void createBook(Library library, Scanner input) {
-        cleanScreen();
         System.out.println("Skriv titeln");
         String bookTitle = input.nextLine();
         if (bookTitle.isEmpty()) {
