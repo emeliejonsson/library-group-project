@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +8,6 @@ public class UserTest {
 
     public UserTest() {
         user1 = new User("sadra");
-
     }
 
     @Test
@@ -17,6 +15,4 @@ public class UserTest {
         assertNotNull(user1.getUserID(), "User-ID cant be null");
         assertEquals(10, user1.getUserID().length(), "User-ID must have length 10, meaning name input is in the wrong format.");
     }
-
-
 }
