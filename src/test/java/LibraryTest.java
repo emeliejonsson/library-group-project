@@ -9,29 +9,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class LibraryTest {
 
     private Library library;
-    private List<String> booksList;
+    private List<Book> booksList;
 
     @BeforeEach
     public void setup() {
         booksList = new ArrayList<>();
-        booksList.add("Test book 1");
-        booksList.add("Test book 2");
+        booksList.add(new Book("To Kill a Mockingbird", "Harper Lee", "9780061120084", 5));
+        booksList.add(new Book("1984", "George Orwell", "9780451524935", 3));
 
         library = new Library(booksList);
     }
 
     @Test
     public void testAddBook() {
-        library.addBook("New book");
-        assertTrue(booksList.contains("New book"));
+        Book newBook = new Book("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565", 4);
+        library.addBook(newBook);
+
+        assertTrue(booksList.contains(newBook));
         assertEquals(3, booksList.size());
     }
 
     @Test
     public void testRemoveBook() {
-        library.removeBook("Test book 1", ReasonForRemoval.LOST);
-        assertFalse(booksList.contains("Test book 1"));
-        assertEquals(ReasonForRemoval.LOST, library.getRemovedBooks().get("Test book 1"));
+        library.removeBook("To Kill a Mockingbird", ReasonForRemoval.LOST);
+        assertEquals(ReasonForRemoval.LOST, library.getRemovedBooks().get("To Kill a Mockingbird"));
     }
 
     @Test
@@ -39,5 +40,12 @@ class LibraryTest {
         library.removeBook("This book does not exist", ReasonForRemoval.DAMAGED);
         assertEquals(2, booksList.size());
         assertFalse(library.getRemovedBooks().containsKey("This book does not exist"));
+    }
+
+    @Test
+    public void testFindBook() {
+        Book searchBook = library.findBook("To Kill a Mockingbird");
+        assertTrue(booksList.contains(searchBook));
+
     }
 }
