@@ -14,7 +14,7 @@ public class Library {
 
     public Book findBook(String bookSearch) {
         for (Book books : this.booksList) {
-            if (books.getTitle().equals(bookSearch)) {
+            if (books.getTitle().equalsIgnoreCase(bookSearch)) {
                 System.out.println(books.getTitle());
                 return books;
             }
@@ -31,7 +31,7 @@ public class Library {
 
     public void removeBook(String nameOfBook, ReasonForRemoval reason) {
         for (Book book : booksList) {
-            if (book.getTitle().equals(nameOfBook)) {
+            if (book.getTitle().equalsIgnoreCase(nameOfBook)) {
                 booksList.remove(book);
                 removedBooks.put(nameOfBook, reason);
                 System.out.println(nameOfBook + " har gallrats från katalogen. Anledning för gallring: " + reason);

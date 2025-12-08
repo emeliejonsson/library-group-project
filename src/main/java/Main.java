@@ -64,7 +64,7 @@ public class Main {
                                 cleanScreen();
                                 listBooks(library);
                                 System.out.println("Skriv in titeln på boken du vill låna");
-                                String title = input.nextLine().toLowerCase();
+                                String title = input.nextLine();
                                 if (title.isEmpty()) {
                                     cleanScreen();
                                     cursiveText("Du måste skriva en titel!");
