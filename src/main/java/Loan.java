@@ -14,6 +14,7 @@ public class Loan {
         this.loanID = loanID;
         this.user = user;
         this.book = book;
+        book.removeCopy(1);
         if (random == 1000) {
             status = LoanStatus.BOOKSTOLEN;
         } else {
@@ -27,13 +28,14 @@ public class Loan {
         return String.format("""
                 Låne-id: %d
                 Bok: %s
-                Användare: %s
+                Användare: %s ID: %s
                 Återlämningsdatum: %s
-                Lånestatus: %s""", loanID, book.getTitle(), user.getName(), returnDate, status);
+                Lånestatus: %s""", loanID, book.getTitle(), user.getName(), user.getUserID(), returnDate, status);
     }
 
     public void endLoan() {
         status = LoanStatus.OLD;
+        book.addCopy(1);
     }
 
     public void setRandom(int random) {

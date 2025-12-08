@@ -1,5 +1,5 @@
 public enum LoanStatus {
-    ACTIVE("Utlånad"), OLD("Försenad"), INVALID("Ej tillgänlig"), BOOKSTOLEN("Stulen");
+    ACTIVE("Utlånad"), OLD("Återlämnad"), INVALID("Ej tillgänlig"), BOOKSTOLEN("Stulen");
 
     private String status;
 
