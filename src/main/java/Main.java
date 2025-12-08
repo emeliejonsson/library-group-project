@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Book book = new Book("hej", "göran", "129391239", 12);
-        Book book1 = new Book("korv", "göran", "121239", 1);
-        Book book2 = new Book("apa", "göran", "12939133239", 6);
-        Book book3 = new Book("ram", "göran", "1291239", 3);
-        Book book4 = new Book("cpu", "göran", "1293912", 1);
-        Book book5 = new Book("gpu", "göran", "29391239", 5);
+        Book book = new Book("Game Of Thrones", "göran", "129391239", 12);
+        Book book1 = new Book("Breaking Java", "Walter White ", "121239", 1);
+        Book book2 = new Book("Sexter", "göran", "12939133239", 6);
+        Book book3 = new Book("Sopranos", "Tony", "1291239", 3);
+        Book book4 = new Book("Whole Life 3", "Gabe Newell", "1293912", 1);
+        Book book5 = new Book("League Of Singed Inters", "Gustav", "29391239", 5);
         Library library = new Library();
         library.addBook(book);
         library.addBook(book1);
@@ -38,21 +38,22 @@ public class Main {
                         }
                         case 1 -> {
                             cleanScreen();
-                            System.out.println("Skriv in ditt namn");
-                            String name = input.nextLine();
-                            if (name.isEmpty()) {
-                                cleanScreen();
-                                cursiveText("Ditt namn kan inte vara blankt!");
-                                System.out.println();
-                            } else {
-                                user = new User(name);
-                                cleanScreen();
-                                System.out.println("Användare skapad: " + user.getName());
-                                System.out.println();
-                                cursiveText("Klicka en knapp för att fortsätta");
-                                input.nextLine();
-                                cleanScreen();
+                            boolean nameIsValid = false;
+                            while (!nameIsValid) {
+                                System.out.println("Skriv in ditt namn (Inga siffror");
+                                String inputname = input.nextLine();
+
+                                if (hasValidName(inputname)){
+                                    user = new User(inputname);
+                                    nameIsValid = true;
+                                    System.out.println("välkommen " + inputname + " ditt ID är " + user.getUserID());
+                                } else {
+                                    System.out.printf("Ingen användare skapat, var snäll och skriv in endast bokstäver");
+                                    System.out.println();
+                                }
+
                             }
+                            cleanScreen();
                         }
                         case 2 -> {
                             if (user == null) {
@@ -289,5 +290,16 @@ public class Main {
     private static void cleanScreen() {
         System.out.println("\033[H\033[2J");
     }
+          
+    private static boolean hasValidName(String name) {
+        name = name.strip();
+        if (name.matches(".*\\d.*") || name.isEmpty()) {
+            return false;
+
+        }
+        return true;
+    }                     
+                         
 }
+
 
