@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Book book = new Book("Game Of Thrones", "göran", "129391239", 12);
-        Book book1 = new Book("Breaking Java", "Walter White ", "121239", 1);
-        Book book2 = new Book("Sexter", "göran", "12939133239", 6);
+        Book book1 = new Book("Breaking Java", "Walter White", "121239", 1);
+        Book book2 = new Book("Göran", "göran", "12939133239", 6);
         Book book3 = new Book("Sopranos", "Tony", "1291239", 3);
         Book book4 = new Book("Whole Life 3", "Gabe Newell", "1293912", 1);
         Book book5 = new Book("League Of Singed Inters", "Gustav", "29391239", 5);
@@ -38,22 +38,26 @@ public class Main {
                         }
                         case 1 -> {
                             cleanScreen();
-                            boolean nameIsValid = false;
-                            while (!nameIsValid) {
-                                System.out.println("Skriv in ditt namn (Inga siffror");
-                                String inputname = input.nextLine();
+                            System.out.println("Skriv in ditt namn (Inga siffror)");
+                            String inputname = input.nextLine();
 
-                                if (hasValidName(inputname)){
-                                    user = new User(inputname);
-                                    nameIsValid = true;
-                                    System.out.println("välkommen " + inputname + " ditt ID är " + user.getUserID());
-                                } else {
-                                    System.out.printf("Ingen användare skapat, var snäll och skriv in endast bokstäver");
-                                    System.out.println();
-                                }
-
+                            if (hasValidName(inputname)) {
+                                user = new User(inputname);
+                                System.out.println();
+                                System.out.println("Välkommen " + inputname + " ditt ID är " + user.getUserID());
+                                System.out.println();
+                                cursiveText("Klicka en knapp för att fortsätta");
+                                input.nextLine();
+                                cleanScreen();
+                            } else {
+                                System.out.println();
+                                System.out.printf("Ingen användare skapat, var snäll och skriv in endast bokstäver");
+                                System.out.println();
+                                System.out.println();
+                                cursiveText("Klicka en knapp för att fortsätta");
+                                input.nextLine();
+                                cleanScreen();
                             }
-                            cleanScreen();
                         }
                         case 2 -> {
                             if (user == null) {
@@ -85,7 +89,7 @@ public class Main {
                         case 3 -> {
                             if (loan == null) {
                                 cleanScreen();
-                                System.out.println("Det finns inga lån");
+                                System.out.println("Du har inga lån");
                             } else {
                                 cleanScreen();
                                 System.out.println(loan.toString());
@@ -103,6 +107,10 @@ public class Main {
                             cleanScreen();
                         }
                         case 5 -> {
+                            cleanScreen();
+                            endLoan(loan, input);
+                        }
+                        case 6 -> {
                             adminMenu(library, input);
                         }
                         default -> {
@@ -118,6 +126,42 @@ public class Main {
                     input.next();
                 }
             }
+        }
+    }
+
+    private static void endLoan(Loan loan, Scanner input) {
+        if (loan != null) {
+            int choiceEndLoan = -1;
+            while (choiceEndLoan != 0) {
+                System.out.println(loan.toString());
+                System.out.println();
+                System.out.println("1. Avsluta ditt lån");
+                System.out.println("0. Avbryt");
+                choiceEndLoan = input.nextInt();
+                switch (choiceEndLoan) {
+                    case 0 -> {
+                        cleanScreen();
+                        break;
+                    }
+                    case 1 -> {
+                        loan.endLoan();
+                        cleanScreen();
+                    }
+                    default -> {
+                        cleanScreen();
+                        System.out.println("Använd 0-1 för att göra val");
+                        System.out.println();
+                        cursiveText("Klicka en knapp för att fortsätta");
+                        input.nextLine();
+                        cleanScreen();
+                    }
+                }
+            }
+        } else {
+            System.out.println("Du har inga lån");
+            cleanScreen();
+
+
         }
     }
 
@@ -271,7 +315,8 @@ public class Main {
                   2. Låna bok
                   3. Visa dina lån
                   4. Visa böcker
-                  5. Admin-meny
+                  5. Avsluta lån
+                  6. Admin-meny
                   0. Lämna
                 """);
     }
@@ -290,7 +335,7 @@ public class Main {
     private static void cleanScreen() {
         System.out.println("\033[H\033[2J");
     }
-          
+
     private static boolean hasValidName(String name) {
         name = name.strip();
         if (name.matches(".*\\d.*") || name.isEmpty()) {
@@ -298,8 +343,8 @@ public class Main {
 
         }
         return true;
-    }                     
-                         
+    }
+
 }
 
 
