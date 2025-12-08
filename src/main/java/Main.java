@@ -124,7 +124,7 @@ public class Main {
         int choiceAdmin = -1;
         cleanScreen();
         while (choiceAdmin != 0) {
-            System.out.printf("""
+            System.out.print("""
                     -Admin Meny-
                       1. Lägg till bok
                       2. Ta bort bok
@@ -172,7 +172,7 @@ public class Main {
         String removeTitle = input.nextLine();
         System.out.println();
         System.out.println("Välj anledningen nedan");
-        System.out.printf("""
+        System.out.print("""
                 1. Skadad
                 2. Saknas
                 3. Gammal upplaga
@@ -264,7 +264,7 @@ public class Main {
     }
 
     private static void printMenu() {
-        System.out.printf("""
+        System.out.print("""
                 Meny
                   1. Registrera användare
                   2. Låna bok
