@@ -3,11 +3,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Book book = new Book("Game Of Thrones", "göran", "129391239", 12);
-        Book book1 = new Book("", "göran", "121239", 1);
-        Book book2 = new Book("apa", "göran", "12939133239", 6);
-        Book book3 = new Book("ram", "göran", "1291239", 3);
-        Book book4 = new Book("cpu", "göran", "1293912", 1);
-        Book book5 = new Book("gpu", "göran", "29391239", 5);
+        Book book1 = new Book("Breaking Java", "Walter White ", "121239", 1);
+        Book book2 = new Book("Sexter", "göran", "12939133239", 6);
+        Book book3 = new Book("Sopranos", "Tony", "1291239", 3);
+        Book book4 = new Book("Whole Life 3", "Gabe Newell", "1293912", 1);
+        Book book5 = new Book("League Of Singed Inters", "Gustav", "29391239", 5);
         Library library = new Library();
         library.addBook(book);
         library.addBook(book1);
