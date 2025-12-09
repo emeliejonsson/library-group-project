@@ -46,15 +46,14 @@ public class Main {
                                 System.out.println();
                                 System.out.println("Välkommen " + inputname + " ditt ID är " + user.getUserID());
                                 System.out.println();
-                                cursiveText("Klicka en knapp för att fortsätta");
+                                cursiveText("Klicka retur för att fortsätta");
                                 input.nextLine();
                                 cleanScreen();
                             } else {
-                                System.out.println();
                                 System.out.printf("Ingen användare skapat, var snäll och skriv in endast bokstäver");
                                 System.out.println();
                                 System.out.println();
-                                cursiveText("Klicka en knapp för att fortsätta");
+                                cursiveText("Klicka retur för att fortsätta");
                                 input.nextLine();
                                 cleanScreen();
                             }
@@ -75,34 +74,35 @@ public class Main {
                                     System.out.println();
                                 } else {
                                     Book bookBorrow = library.findBook(title);
-                                    loan = new Loan(loanId, user, bookBorrow);
-                                    loanId++;
-                                    cleanScreen();
-                                    System.out.println(loan.toString());
+                                    if (bookBorrow != null) {
+                                        loan = new Loan(loanId, user, bookBorrow);
+                                        loanId++;
+                                        cleanScreen();
+                                        System.out.println(loan.toString());
+                                    }
                                     System.out.println();
-                                    cursiveText("Klicka en knapp för att fortsätta");
+                                    cursiveText("Klicka retur för att fortsätta");
                                     input.nextLine();
                                     cleanScreen();
                                 }
                             }
                         }
                         case 3 -> {
+                            cleanScreen();
                             if (loan == null) {
-                                cleanScreen();
                                 System.out.println("Du har inga lån");
                             } else {
-                                cleanScreen();
                                 System.out.println(loan.toString());
                             }
                             System.out.println();
-                            cursiveText("Klicka en knapp för att fortsätta");
+                            cursiveText("Klicka retur för att fortsätta");
                             input.nextLine();
                             cleanScreen();
                         }
                         case 4 -> {
                             cleanScreen();
                             listBooks(library);
-                            cursiveText("Klicka en knapp för att fortsätta");
+                            cursiveText("Klicka retur för att fortsätta");
                             input.nextLine();
                             cleanScreen();
                         }
@@ -151,17 +151,16 @@ public class Main {
                         cleanScreen();
                         System.out.println("Använd 0-1 för att göra val");
                         System.out.println();
-                        cursiveText("Klicka en knapp för att fortsätta");
+                        cursiveText("Klicka retur för att fortsätta");
                         input.nextLine();
                         cleanScreen();
                     }
                 }
             }
         } else {
-            System.out.println("Du har inga lån");
             cleanScreen();
-
-
+            cursiveText("Du har inga lån");
+            System.out.println();
         }
     }
 
@@ -194,7 +193,7 @@ public class Main {
                         cleanScreen();
                         System.out.println("Använd 0-2 för att göra val");
                         System.out.println();
-                        cursiveText("Klicka en knapp för att fortsätta");
+                        cursiveText("Klicka retur för att fortsätta");
                         input.nextLine();
                         cleanScreen();
                     }
@@ -236,7 +235,7 @@ public class Main {
                     removalReason = ReasonForRemoval.DAMAGED;
                     library.removeBook(removeTitle, removalReason);
                     System.out.println();
-                    cursiveText("Klicka en knapp för att fortsätta");
+                    cursiveText("Klicka retur för att fortsätta");
                     input.nextLine();
                     cleanScreen();
                 }
@@ -245,7 +244,7 @@ public class Main {
                     removalReason = ReasonForRemoval.LOST;
                     library.removeBook(removeTitle, removalReason);
                     System.out.println();
-                    cursiveText("Klicka en knapp för att fortsätta");
+                    cursiveText("Klicka retur för att fortsätta");
                     input.nextLine();
                     cleanScreen();
                 }
@@ -254,7 +253,7 @@ public class Main {
                     removalReason = ReasonForRemoval.OUTDATED;
                     library.removeBook(removeTitle, removalReason);
                     System.out.println();
-                    cursiveText("Klicka en knapp för att fortsätta");
+                    cursiveText("Klicka retur för att fortsätta");
                     input.nextLine();
                     cleanScreen();
                 }
@@ -262,7 +261,7 @@ public class Main {
                     cleanScreen();
                     System.out.println("Du måste välja en anledning för borttagningen");
                     System.out.println();
-                    cursiveText("Klicka en knapp för att fortsätta");
+                    cursiveText("Klicka retur för att fortsätta");
                     input.nextLine();
                     cleanScreen();
                 }
@@ -303,7 +302,7 @@ public class Main {
         System.out.println();
         library.addBook(new Book(bookTitle, bookAuthor, bookIsbn, 1));
         System.out.println();
-        cursiveText("Klicka en knapp för att fortsätta");
+        cursiveText("Klicka retur för att fortsätta");
         input.nextLine();
         cleanScreen();
     }
