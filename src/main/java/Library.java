@@ -19,6 +19,7 @@ public class Library {
                 return books;
             }
         }
+        System.out.println();
         System.out.println("Ingen matching för " + bookSearch + " hittades. Kontrollera stavningen eller försök med en annan titel.");
         return null;
 
