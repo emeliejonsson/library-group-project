@@ -47,7 +47,11 @@ public class Library {
     }
 
     public Map<String, ReasonForRemoval> getRemovedBooks() {
-        return removedBooks;
+            return removedBooks;
     }
-
+    public void listRemovedBooks() {
+        for (Map.Entry<String, ReasonForRemoval> entry : getRemovedBooks().entrySet()) {
+            System.out.println(entry.getKey() + " har tagits bort. Anledning till borttagning: " + entry.getValue());
+        }
+    }
 }
