@@ -172,6 +172,7 @@ public class Main {
                     -Admin Meny-
                       1. Lägg till bok
                       2. Ta bort bok
+                      3. Se gallrade böcker
                       0. Lämna
                     """);
             if (input.hasNextInt()) {
@@ -188,6 +189,13 @@ public class Main {
                     case 2 -> {
                         cleanScreen();
                         removeBook(library, input);
+                    }
+                    case 3 -> {
+                        cleanScreen();
+                        library.listRemovedBooks();
+                        System.out.println();
+                        cursiveText("Klicka retur för att fortsätta");
+                        input.nextLine();
                     }
                     default -> {
                         cleanScreen();
