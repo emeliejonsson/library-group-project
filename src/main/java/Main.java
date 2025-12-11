@@ -206,6 +206,7 @@ public class Main {
                         System.out.println();
                         cursiveText("Klicka retur för att fortsätta");
                         input.nextLine();
+                        cleanScreen();
                     }
                     default -> {
                         cleanScreen();
