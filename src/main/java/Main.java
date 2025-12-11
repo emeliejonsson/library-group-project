@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static void main(String[] args) {
-        Book book  = new Book("Game of Thrones", "Göran Andersson", "9781234000012", 12);
+        Book book = new Book("Game of Thrones", "Göran Andersson", "9781234000012", 12);
         Book book1 = new Book("Breaking Java", "Walter White", "9781234000013", 1);
         Book book2 = new Book("Göran", "Göran Svensson", "9781234000014", 6);
         Book book3 = new Book("Sopranos", "Tony Soprano", "9781234000015", 3);
@@ -22,11 +23,12 @@ public class Main {
 
     private static void runLibrary(Library library) {
         try (Scanner input = new Scanner(System.in)) {
-            int loanId = 1;
+            int loanId;
             Loan loan = null;
             User user = null;
             int choice = -1;
             while (choice != 0) {
+                loanId = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
                 printMenu();
                 if (input.hasNextInt()) {
                     choice = input.nextInt();
@@ -37,55 +39,10 @@ public class Main {
                             System.out.println("Hejdå!");
                         }
                         case 1 -> {
-                            cleanScreen();
-                            System.out.println("Skriv in ditt namn (Inga siffror)");
-                            String inputname = input.nextLine();
-
-                            if (hasValidName(inputname)) {
-                                user = new User(inputname);
-                                System.out.println();
-                                System.out.println("Välkommen " + inputname + " ditt ID är " + user.getUserID());
-                                System.out.println();
-                                cursiveText("Klicka retur för att fortsätta");
-                                input.nextLine();
-                                cleanScreen();
-                            } else {
-                                System.out.printf("Ingen användare skapat, var snäll och skriv in endast bokstäver");
-                                System.out.println();
-                                System.out.println();
-                                cursiveText("Klicka retur för att fortsätta");
-                                input.nextLine();
-                                cleanScreen();
-                            }
+                            user = createUser(input, user);
                         }
                         case 2 -> {
-                            if (user == null) {
-                                cleanScreen();
-                                cursiveText("Du måste skapa en användare först!");
-                                System.out.println();
-                            } else {
-                                cleanScreen();
-                                listBooks(library);
-                                System.out.println("Skriv in titeln på boken du vill låna");
-                                String title = input.nextLine();
-                                if (title.isEmpty()) {
-                                    cleanScreen();
-                                    cursiveText("Du måste skriva en titel!");
-                                    System.out.println();
-                                } else {
-                                    Book bookBorrow = library.findBook(title);
-                                    if (bookBorrow != null) {
-                                        loan = new Loan(loanId, user, bookBorrow);
-                                        loanId++;
-                                        cleanScreen();
-                                        System.out.println(loan.toString());
-                                    }
-                                    System.out.println();
-                                    cursiveText("Klicka retur för att fortsätta");
-                                    input.nextLine();
-                                    cleanScreen();
-                                }
-                            }
+                            loan = newLoan(library, user, input, loan, loanId);
                         }
                         case 3 -> {
                             cleanScreen();
@@ -129,6 +86,59 @@ public class Main {
         }
     }
 
+    private static User createUser(Scanner input, User user) {
+        cleanScreen();
+        System.out.println("Skriv in ditt namn (Inga siffror)");
+        String inputname = input.nextLine();
+        if (hasValidName(inputname)) {
+            user = new User(inputname);
+            System.out.println();
+            System.out.println("Välkommen " + inputname + " ditt ID är " + user.getUserID());
+            System.out.println();
+            cursiveText("Klicka retur för att fortsätta");
+            input.nextLine();
+            cleanScreen();
+        } else {
+            System.out.printf("Ingen användare skapat, var snäll och skriv in endast bokstäver");
+            System.out.println();
+            System.out.println();
+            cursiveText("Klicka retur för att fortsätta");
+            input.nextLine();
+            cleanScreen();
+        }
+        return user;
+    }
+
+    private static Loan newLoan(Library library, User user, Scanner input, Loan loan, int loanId) {
+        if (user == null) {
+            cleanScreen();
+            cursiveText("Du måste skapa en användare först!");
+            System.out.println();
+        } else {
+            cleanScreen();
+            listBooks(library);
+            System.out.println("Skriv in titeln på boken du vill låna");
+            String title = input.nextLine();
+            if (title.isEmpty()) {
+                cleanScreen();
+                cursiveText("Du måste skriva en titel!");
+                System.out.println();
+            } else {
+                Book bookBorrow = library.findBook(title);
+                if (bookBorrow != null) {
+                    loan = new Loan(loanId, user, bookBorrow);
+                    cleanScreen();
+                    System.out.println(loan.toString());
+                }
+                System.out.println();
+                cursiveText("Klicka retur för att fortsätta");
+                input.nextLine();
+                cleanScreen();
+            }
+        }
+        return loan;
+    }
+
     private static void endLoan(Loan loan, Scanner input) {
         if (loan != null) {
             int choiceEndLoan = -1;
@@ -136,7 +146,7 @@ public class Main {
                 System.out.println(loan.toString());
                 System.out.println();
                 System.out.println("1. Avsluta ditt lån");
-                System.out.println("0. Avbryt");
+                System.out.println("0. Avbryt/Lämna");
                 choiceEndLoan = input.nextInt();
                 switch (choiceEndLoan) {
                     case 0 -> {
